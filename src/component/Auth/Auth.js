@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { getUser } from "../../ducks/reducer.js";
 
 class Auth extends Component {
   constructor(props) {
@@ -30,10 +32,12 @@ class Auth extends Component {
       return false;
     }
     axios.post("api/login", { user_name, user_password }).then(res => {
+      const { id, user_name, user_picture } = res.data[0];
+      console.log("User Data", res.data);
       res.status == 200
-        ? this.props.history.push("/dashboard")
+        ? (this.props.getUser(id, user_name, user_picture),
+          this.props.history.push("/dashboard"))
         : console.log("False");
-      console.log("User Data", res.data[0]);
     });
   }
 
@@ -75,9 +79,18 @@ class Auth extends Component {
         >
           Register
         </button>
+
+        <div className="floatElement">Just a float</div>
+        <audio controls />
+        <video width="320" height="240" controls />
+
+        <div>I am inline</div>
       </div>
     );
   }
 }
 
-export default Auth;
+export default connect(
+  null,
+  { getUser }
+)(Auth);

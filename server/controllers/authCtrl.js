@@ -1,7 +1,9 @@
 const createUser = (req, res) => {
+  let randomPicture =
+    "https://robohash.org/" + Math.floor(Math.random() * 10000);
   req.app
     .get("db")
-    .createUser([req.body.user_name, req.body.user_password])
+    .createUser([req.body.user_name, req.body.user_password, randomPicture])
     .then(response => {
       res.status(200).json(response);
     })
