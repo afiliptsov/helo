@@ -2,7 +2,12 @@ import React, { Component } from "react";
 
 class Post extends Component {
   render() {
-    return <div>Post</div>;
+    return (
+      <div>
+        Posts
+        <div />
+      </div>
+    );
   }
 }
 export default Post;
